@@ -25,7 +25,7 @@
         <module>spring-petclinic-api-gateway</module>
         <module>spring-petclinic-hystrix-dashboard</module>
     </modules>
-
+   
     <properties>
         <java.version>11</java.version>
         <assertj.version>3.11.1</assertj.version>
@@ -70,7 +70,11 @@
                 <version>${assertj.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-resources-plugin</artifactId>
+    <version>2.4.3</version>
+</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -129,6 +133,36 @@
                             <failOnNoGitDirectory>false</failOnNoGitDirectory>
                         </configuration>
                     </plugin>
+
+                    <plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.2</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+        </execution>
+        <!-- attached to Maven test phase -->
+        <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+<plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>2.22.1</version>
+      <configuration>
+          <runOrder>alphabetical</runOrder>
+          <useSystemClassLoader>false</useSystemClassLoader>
+      </configuration>
+   </plugin>
                 </plugins>
             </build>
 
